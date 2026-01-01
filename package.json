@@ -1,0 +1,19 @@
+{
+  "name": "reut",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "dates.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "dependencies": {
+    "date-fns": "^4.1.0"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "vitest": "^4.0.16"
+  }
+}
