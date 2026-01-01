@@ -1,10 +1,28 @@
-import { getYear, getMonth, getDate, getHours, getMinutes, getSeconds, getMilliseconds, getDayOfYear, getQuarter, getDaysInMonth, getISOWeek, format,isValid,} from "date-fns";
+import {
+  getYear,
+  getMonth,
+  getDate,
+  getHours,
+  getMinutes,
+  getSeconds,
+  getMilliseconds,
+  getDayOfYear,
+  getQuarter,
+  getDaysInMonth,
+  getISOWeek,
+  format,
+  isValid,
+} from "date-fns";
 
 export function dateInfo(dateA) {
   const d = dateA instanceof Date ? dateA : new Date(dateA);
 
+  if (!isValid(d)) {
+    throw new Error("Invalid date input");
+  }
+
   const dayOfWeekNumber = d.getDay();
-  const isWeekend = dayOfWeekNumber >= 4;
+  const isWeekend = dayOfWeekNumber === 5 || dayOfWeekNumber === 6;
 
   return {
     year: getYear(d),
@@ -25,4 +43,3 @@ export function dateInfo(dateA) {
     timestamp: d.getTime(),
   };
 }
-const info = dateInfo("2025-12-22T14:30:45.123");

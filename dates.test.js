@@ -1,5 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { datesBetween } from "./dates.js";
+
+import { datesBetween } from "./datesBetween.js";
+import { dateInfo } from "./dateInfo.js";
+import { dateRange } from "./dateRange.js";
 
 const isoDate = (d) => d.toISOString().slice(0, 10);
 
@@ -46,5 +49,32 @@ describe("datesBetween", () => {
     expect(() =>
       datesBetween("2025-01-01T00:00:00.000Z", "2025-01-02T00:00:00.000Z", "bad")
     ).toThrow();
+  });
+});
+
+describe("dateInfo", () => {
+  it("מחזיר שדות צפויים", () => {
+    const info = dateInfo("2025-12-22T14:30:45.123Z");
+    expect(info.year).toBe(2025);
+    expect(info.month).toBe(12);
+    expect(info.day).toBe(22);
+    expect(info.hour).toBe(14);
+    expect(info.minute).toBe(30);
+    expect(info.second).toBe(45);
+    expect(info.millisecond).toBe(123);
+  });
+
+  it("זורק שגיאה על תאריך לא תקין", () => {
+    expect(() => dateInfo("not-a-date")).toThrow();
+  });
+});
+
+describe("dateRange", () => {
+  it("פורמט טווח תאריכים (ISO)", () => {
+    expect(dateRange("2012-11-11", "2010-12-12")).toBe("11/11/2012-12/12/2010");
+  });
+
+  it("פורמט טווח תאריכים (עם פסיקים)", () => {
+    expect(dateRange("2012,11,11", "2010,12,12")).toBe("11/11/2012-12/12/2010");
   });
 });

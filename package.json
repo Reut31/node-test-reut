@@ -6,8 +6,8 @@
   "author": "",
   "type": "module",
   "main": "dates.js",
-  "scripts": {
-    "test": "vitest"
+"scripts": {
+  "test": "cross-env TZ=UTC vitest"
   },
   "dependencies": {
     "date-fns": "^4.1.0"

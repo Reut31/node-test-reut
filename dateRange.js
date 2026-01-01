@@ -5,11 +5,12 @@ function toDate(input) {
 
   const s = String(input).trim();
 
+
   const m = s.match(/^(\d{4}),(\d{1,2}),(\d{1,2})$/);
   if (m) {
     const year = Number(m[1]);
     const month = Number(m[2]);
-    const day = Number(m[3]); 
+    const day = Number(m[3]);
     return new Date(Date.UTC(year, month - 1, day));
   }
 
