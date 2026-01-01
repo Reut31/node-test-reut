@@ -6,21 +6,15 @@ import {
   addHours,
   addMinutes,
   addSeconds,
+  isValid,
 } from "date-fns";
 
 export function datesBetween(startDate, endDate, interval = "day") {
-  let start;
-  if (startDate instanceof Date) {
-    start = startDate;
-  } else {
-    start = new Date(startDate);
-  }
+  let start = startDate instanceof Date ? startDate : new Date(startDate);
+  let end = endDate instanceof Date ? endDate : new Date(endDate);
 
-  let end;
-  if (endDate instanceof Date) {
-    end = endDate;
-  } else {
-    end = new Date(endDate);
+  if (!isValid(start) || !isValid(end)) {
+    throw new Error("Invalid startDate/endDate");
   }
 
   if (start.getTime() > end.getTime()) {
