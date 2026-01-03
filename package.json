@@ -6,11 +6,13 @@
   "author": "",
   "type": "module",
   "main": "dates.js",
-"scripts": {
-  "test": "cross-env TZ=UTC vitest"
+  "scripts": {
+    "test": "cross-env TZ=UTC vitest",
+    "config": "node config.js"
   },
   "dependencies": {
-    "date-fns": "^4.1.0"
+    "date-fns": "^4.1.0",
+    "dotenv": "^17.2.3"
   },
   "devDependencies": {
     "cross-env": "^10.1.0",

@@ -7,7 +7,7 @@ import { dateRange } from "./dateRange.js";
 const isoDate = (d) => d.toISOString().slice(0, 10);
 
 describe("datesBetween", () => {
-  it("week: מחזיר נקודות שבועיות ותמיד כולל end", () => {
+  it("week: returns weekly points and always includes the end date", () => {
     const arr = datesBetween(
       "2025-01-01T00:00:00.000Z",
       "2025-01-25T00:00:00.000Z",
@@ -23,7 +23,7 @@ describe("datesBetween", () => {
     ]);
   });
 
-  it("ברירת מחדל interval=day", () => {
+  it("default interval is day", () => {
     const arr = datesBetween(
       "2025-01-01T00:00:00.000Z",
       "2025-01-03T00:00:00.000Z"
@@ -31,7 +31,7 @@ describe("datesBetween", () => {
     expect(arr.map(isoDate)).toEqual(["2025-01-01", "2025-01-02", "2025-01-03"]);
   });
 
-  it("halfDay: כל 12 שעות ותמיד מוסיף end אם לא יצא בדיוק", () => {
+  it("halfDay: returns every 12 hours and adds end if it doesn't land exactly", () => {
     const arr = datesBetween(
       "2025-01-01T00:00:00.000Z",
       "2025-01-01T23:00:00.000Z",
@@ -45,7 +45,7 @@ describe("datesBetween", () => {
     ]);
   });
 
-  it("זורק שגיאה על interval לא חוקי", () => {
+  it("throws an error for an invalid interval", () => {
     expect(() =>
       datesBetween("2025-01-01T00:00:00.000Z", "2025-01-02T00:00:00.000Z", "bad")
     ).toThrow();
@@ -53,7 +53,7 @@ describe("datesBetween", () => {
 });
 
 describe("dateInfo", () => {
-  it("מחזיר שדות צפויים", () => {
+  it("returns expected fields", () => {
     const info = dateInfo("2025-12-22T14:30:45.123Z");
     expect(info.year).toBe(2025);
     expect(info.month).toBe(12);
@@ -64,17 +64,17 @@ describe("dateInfo", () => {
     expect(info.millisecond).toBe(123);
   });
 
-  it("זורק שגיאה על תאריך לא תקין", () => {
+  it("throws an error for an invalid date", () => {
     expect(() => dateInfo("not-a-date")).toThrow();
   });
 });
 
 describe("dateRange", () => {
-  it("פורמט טווח תאריכים (ISO)", () => {
+  it("formats a date range (ISO input)", () => {
     expect(dateRange("2012-11-11", "2010-12-12")).toBe("11/11/2012-12/12/2010");
   });
 
-  it("פורמט טווח תאריכים (עם פסיקים)", () => {
+  it("formats a date range (comma-separated input)", () => {
     expect(dateRange("2012,11,11", "2010,12,12")).toBe("11/11/2012-12/12/2010");
   });
 });
