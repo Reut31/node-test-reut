@@ -10,17 +10,15 @@ import {
 } from "date-fns";
 
 export function datesBetween(startDate, endDate, interval = "day") {
-  let start = startDate instanceof Date ? startDate : new Date(startDate);
-  let end = endDate instanceof Date ? endDate : new Date(endDate);
+  let start =new Date(startDate);
+  let end =new Date(endDate);
 
   if (!isValid(start) || !isValid(end)) {
     throw new Error("Invalid startDate/endDate");
   }
 
   if (start.getTime() > end.getTime()) {
-    const tmp = start;
-    start = end;
-    end = tmp;
+    throw new Error("start is bigger then end");
   }
 
   const addMap = {
@@ -42,15 +40,11 @@ export function datesBetween(startDate, endDate, interval = "day") {
   const out = [];
   let current = start;
 
-  while (current.getTime() <= end.getTime()) {
+  while (current.getTime() < end.getTime()) {
     out.push(current);
     current = addFn(current);
   }
-
-  const last = out[out.length - 1];
-  if (!last || last.getTime() !== end.getTime()) {
-    out.push(end);
-  }
-
+  out.push(end);
+  
   return out;
 }

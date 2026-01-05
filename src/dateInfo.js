@@ -14,15 +14,12 @@ import {
   isValid,
 } from "date-fns";
 
-export function dateInfo(dateA) {
-  const d = dateA instanceof Date ? dateA : new Date(dateA);
+export function dateInfo(date) {
+  const d = new Date(date);
 
   if (!isValid(d)) {
     throw new Error("Invalid date input");
   }
-
-  const dayOfWeekNumber = d.getDay();
-  const isWeekend = dayOfWeekNumber === 5 || dayOfWeekNumber === 6;
 
   return {
     year: getYear(d),
@@ -38,7 +35,7 @@ export function dateInfo(dateA) {
     weekOfYear: getISOWeek(d),
     dayOfYear: getDayOfYear(d),
     quarter: getQuarter(d),
-    isWeekend,
+    isWeekend: d.getDay() >= 4,
     daysInMonth: getDaysInMonth(d),
     timestamp: d.getTime(),
   };
